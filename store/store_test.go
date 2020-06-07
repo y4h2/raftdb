@@ -9,7 +9,7 @@ import (
 
 // Test_StoreOpen tests that the store can be opened.
 func Test_StoreOpen(t *testing.T) {
-	s := New(false)
+	s := New()
 	tmpDir, _ := ioutil.TempDir("", "store_test")
 	defer os.RemoveAll(tmpDir)
 
@@ -26,7 +26,7 @@ func Test_StoreOpen(t *testing.T) {
 
 // Test_StoreOpenSingleNode tests that a command can be applied to the log
 func Test_StoreOpenSingleNode(t *testing.T) {
-	s := New(false)
+	s := New()
 	tmpDir, _ := ioutil.TempDir("", "store_test")
 	defer os.RemoveAll(tmpDir)
 
@@ -49,7 +49,7 @@ func Test_StoreOpenSingleNode(t *testing.T) {
 
 	// Wait for committed log entry to be applied.
 	time.Sleep(500 * time.Millisecond)
-	value, err := s.Get("foo")
+	value, err := s.Get("foo", Default)
 	if err != nil {
 		t.Fatalf("failed to get key: %s", err.Error())
 	}
@@ -63,7 +63,7 @@ func Test_StoreOpenSingleNode(t *testing.T) {
 
 	// Wait for committed log entry to be applied.
 	time.Sleep(500 * time.Millisecond)
-	value, err = s.Get("foo")
+	value, err = s.Get("foo", Default)
 	if err != nil {
 		t.Fatalf("failed to get key: %s", err.Error())
 	}
@@ -75,7 +75,7 @@ func Test_StoreOpenSingleNode(t *testing.T) {
 // Test_StoreInMemOpenSingleNode tests that a command can be applied to the log
 // stored in RAM.
 func Test_StoreInMemOpenSingleNode(t *testing.T) {
-	s := New(true)
+	s := New()
 	tmpDir, _ := ioutil.TempDir("", "store_test")
 	defer os.RemoveAll(tmpDir)
 
@@ -98,7 +98,7 @@ func Test_StoreInMemOpenSingleNode(t *testing.T) {
 
 	// Wait for committed log entry to be applied.
 	time.Sleep(500 * time.Millisecond)
-	value, err := s.Get("foo")
+	value, err := s.Get("foo", Default)
 	if err != nil {
 		t.Fatalf("failed to get key: %s", err.Error())
 	}
@@ -112,7 +112,7 @@ func Test_StoreInMemOpenSingleNode(t *testing.T) {
 
 	// Wait for committed log entry to be applied.
 	time.Sleep(500 * time.Millisecond)
-	value, err = s.Get("foo")
+	value, err = s.Get("foo", Default)
 	if err != nil {
 		t.Fatalf("failed to get key: %s", err.Error())
 	}
